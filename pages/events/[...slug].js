@@ -70,7 +70,7 @@ function FilteredEventsPage(props) {
     );
   });
 
-  if (!FilteredEvents || filteredEvents.length === 0) {
+  if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <Fragment>
         <ErrorAlert>
