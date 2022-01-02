@@ -1,14 +1,13 @@
 export async function getAllEvents() {
-  const response = await fetch(
-    "https://nextjs-events-e71d9-default-rtdb.firebaseio.com/events.json"
-  );
+  const response = await fetch('https://nextjs-events-e71d9-default-rtdb.firebaseio.com/events.json');
   const data = await response.json();
 
   const events = [];
+
   for (const key in data) {
     events.push({
       id: key,
-      ...data[key],
+      ...data[key]
     });
   }
 
@@ -32,9 +31,7 @@ export async function getFilteredEvents(dateFilter) {
 
   let filteredEvents = allEvents.filter((event) => {
     const eventDate = new Date(event.date);
-    return (
-      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
-    );
+    return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1;
   });
 
   return filteredEvents;
