@@ -1,12 +1,10 @@
 import { MongoClient } from 'mongodb';
+import { getAllDocuments } from '../../../helpers/db-util';
 
 async function handler(req, res) {
-    const eventId = req.query.eventId;
-  
+    const eventId = req.query.eventId;  
     const client = await MongoClient.connect('mongodb+srv://testUser:testUser123456@cluster0.agazq.mongodb.net/events?retryWrites=true&w=majority')
-        
 
-    
     if (req.method === 'POST') {
       const { email, name, text } = req.body;
   
@@ -38,10 +36,7 @@ async function handler(req, res) {
   
     if (req.method === 'GET') {
       const db = client.db();
-      const documents = await db.collection('comments')
-      .find()
-      .sort({_id: -1})
-      .toArray();
+      const documents = await getAllDocuments(client, 'comments', { _id: -1 }, { eventId: eventId });
   
       res.status(200).json({ comments: documents });
     }
